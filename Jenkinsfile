@@ -4,14 +4,13 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // The below will clone your repo and will be checked out to master branch by default.
-                    git credentialsId: 'final-project-git', url: 'git@github.com:sepulturese/crcs.git'
-                    // Do a ls -lart to view all the files are cloned. It will be clonned. This is just for you to be sure about it.
-                    sh "ls -lart ./*" 
-                    // List all branches in your repo. 
-                    sh "git branch -a"
-                    // Checkout to a specific branch in your repo.
-                    sh "git checkout main"
+                    checkout([$class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [[$class: 'CloneOption', noTags: true, reference: '', shallow: true]],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[credentialsId: 'final-project-git', url: 'git@github.com:sepulturese/crcs.git']]
+                ]);
                 }
             }
         }
