@@ -16,8 +16,9 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'cd server'
-                sh 'make'
+                sh '(cd server && make)'
+                sh 'mkdir build'
+                sh 'cp server/debug/server/ build/'
             }
         }
         stage('Test') {
@@ -36,7 +37,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    sourceFiles: "*",
+                                    sourceFiles: "build/*",
                                     //removePrefix: "",
                                     remoteDirectory: "final-project",
                                     //execCommand: ""
