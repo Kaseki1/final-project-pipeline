@@ -40,7 +40,7 @@ pipeline {
                                     sourceFiles: "build/*",
                                     //removePrefix: "",
                                     remoteDirectory: "final-project",
-                                    //execCommand: ""
+                                    execCommand: "./build/server > server.log & disown"
                                 )
                         ])
                     ])
