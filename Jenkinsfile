@@ -40,7 +40,7 @@ pipeline {
                                     sourceFiles: "build/*",
                                     //removePrefix: "",
                                     //remoteDirectory: "",
-                                    execCommand: "pkill server; chmod +x ./build/server; ./build/server > server.log & disown"
+                                    execCommand: "pwd; pkill server; chmod +x ./build/server; ./build/server > server.log & disown"
                                 )
                         ])
                     ])
