@@ -39,7 +39,7 @@ pipeline {
                                 sshTransfer(
                                     sourceFiles: "build/*",
                                     //removePrefix: "",
-                                    remoteDirectory: "",
+                                    //remoteDirectory: "",
                                     execCommand: "pkill server; ./build/server > server.log & disown"
                                 )
                         ])
