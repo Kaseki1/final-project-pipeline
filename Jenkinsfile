@@ -40,19 +40,10 @@ pipeline {
                                     sourceFiles: "build/*",
                                     //removePrefix: "",
                                     //remoteDirectory: "",
-                                    execCommand: "pkill server; sleep 20; chmod +x ./final-project/build/server; ./final-project/build/server > server.log & disown; exit 0"
+                                    execCommand: "pkill server; sleep 20; chmod +x ./final-project/build/server; ./final-project/build/server > server.log & disown; pgrep server"
                                 )
                         ])
                     ])
-                }
-                script {
-                    sh """ssh -i /var/lib/jenkins/.ssh/jenkins_rsa admin@192.168.1.17 << EOF 
-                    pkill server
-                    sleep 20
-                    chmod +x ./final-project/build/server
-                    ./final-project/build/server > server.log & disown
-                    exit
-                    EOF"""
                 }
             }
         }
