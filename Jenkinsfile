@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh '(cd server && make)'
                 sh 'mkdir build'
-                sh 'cp server/debug/server/ build/'
+                sh 'cp server/debug/server build/'
             }
         }
         stage('Test') {
