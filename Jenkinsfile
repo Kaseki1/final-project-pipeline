@@ -26,6 +26,24 @@ pipeline {
                 echo 'Test'
             }
         }
+        stage('Transfer') {
+            steps {
+                script {
+                    sshPublisher(
+                        continueOnError: false, failOnError: true,
+                        publishers: [
+                            sshPublisherDesc(
+                            configName: "final-project",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: "build/*, deploy_server.sh"
+                                )
+                        ])
+                    ])
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 script {
@@ -37,10 +55,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    sourceFiles: "build/*",
-                                    //removePrefix: "",
-                                    //remoteDirectory: "",
-                                    execCommand: "pkill server; sleep 20; chmod +x ./final-project/build/server; (./final-project/build/server > server.log & disown); echo Deployed!"
+                                    execCommand: "chmod +x final-project/deploy_server.sh"
                                 )
                         ])
                     ])
