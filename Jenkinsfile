@@ -9,7 +9,7 @@ pipeline {
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [[$class: 'CloneOption', noTags: true, reference: '', shallow: true]],
                     submoduleCfg: [],
-                    userRemoteConfigs: [[credentialsId: 'final-project-git', url: 'git@github.com:sepulturese/crcs.git']]
+                    userRemoteConfigs: [[credentialsId: 'final-project-git', url: 'git@github.com:Kaseki1/crcs.git']]
                 ]);
                 }
             }
