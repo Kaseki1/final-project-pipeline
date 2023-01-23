@@ -16,7 +16,8 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Build'
+                sh 'cd server'
+                sh 'make'
             }
         }
         stage('Test') {
@@ -26,7 +27,23 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploy'
+                script {
+                    sshPublisher(
+                        continueOnError: false, failOnError: true,
+                        publishers: [
+                            sshPublisherDesc(
+                            configName: "final-project",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: "*",
+                                    //removePrefix: "",
+                                    remoteDirectory: "final-project",
+                                    //execCommand: ""
+                                )
+                        ])
+                    ])
+                }
             }
         }
     }
