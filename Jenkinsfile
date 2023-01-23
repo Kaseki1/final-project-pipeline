@@ -37,13 +37,21 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    sourceFiles: "build/*",
+                                    sourceFiles: "build/*"
                                     //removePrefix: "",
                                     //remoteDirectory: "",
-                                    execCommand: "pkill server; sleep 20; chmod +x ./final-project/build/server; ./final-project/build/server > server.log & disown; exit"
                                 )
                         ])
                     ])
+                }
+                script {
+                    sh """ssh -tt admin@192.168.1.17 << EOF 
+                    pkill server
+                    sleep 20
+                    chmod +x ./final-project/build/server
+                    ./final-project/build/server > server.log & disown
+                    exit
+                    EOF"""
                 }
             }
         }
