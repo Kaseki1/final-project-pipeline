@@ -51,7 +51,7 @@ pipeline {
                         continueOnError: false, failOnError: true,
                         publishers: [
                             sshPublisherDesc(
-                            configName: "final-project",
+                            configName: "dev-ssh-key",
                             verbose: true,
                             transfers: [
                                 sshTransfer(
