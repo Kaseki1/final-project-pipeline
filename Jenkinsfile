@@ -15,6 +15,12 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+                docker {
+                    image 'build-container:1'
+                    reuseNode true
+                }
+            }
             steps {
                 sh '(cd server && make)'
                 sh 'test -d build || mkdir build'
