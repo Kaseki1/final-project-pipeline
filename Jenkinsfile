@@ -22,7 +22,7 @@ pipeline {
                 }
             }
             steps {
-                sh '(cd server && make)'
+                sh '(cd server && make clean && make)'
                 sh 'test -d build || mkdir build'
                 sh 'cp server/debug/server build/'
             }
