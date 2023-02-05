@@ -72,6 +72,9 @@ pipeline {
             input {
                 message "Do you want to proceed for production deployment?"
             }
+            steps {
+                echo 'Approved'
+            }
         }
         stage('Transfer to production env') {
             steps {
@@ -80,7 +83,7 @@ pipeline {
                         continueOnError: false, failOnError: true,
                         publishers: [
                             sshPublisherDesc(
-                            configName: "dev-ssh-key",
+                            configName: "prod-ssh-key",
                             verbose: true,
                             transfers: [
                                 sshTransfer(
@@ -98,7 +101,7 @@ pipeline {
                         continueOnError: false, failOnError: true,
                         publishers: [
                             sshPublisherDesc(
-                            configName: "dev-ssh-key",
+                            configName: "prod-ssh-key",
                             verbose: true,
                             transfers: [
                                 sshTransfer(
