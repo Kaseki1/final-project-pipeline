@@ -68,5 +68,13 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to production') {
+            input {
+                message "Do you want to proceed for production deployment?"
+            }
+            steps {
+                echo 'Deploy to prod'
+            }
+        }
     }
 }
