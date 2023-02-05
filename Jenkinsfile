@@ -31,43 +31,43 @@ pipeline {
             steps {
                 echo 'Test'
             }
-        }
-        stage('Transfer to development env') {
-            steps {
-                script {
-                    sshPublisher(
-                        continueOnError: false, failOnError: true,
-                        publishers: [
-                            sshPublisherDesc(
-                            configName: "dev-ssh-key",
-                            verbose: true,
-                            transfers: [
-                                sshTransfer(
-                                    sourceFiles: "build/*, deploy_server.sh"
-                                )
-                        ])
-                    ])
-                }
-            }
-        }
-        stage('Deploy to development env') {
-            steps {
-                script {
-                    sshPublisher(
-                        continueOnError: false, failOnError: true,
-                        publishers: [
-                            sshPublisherDesc(
-                            configName: "dev-ssh-key",
-                            verbose: true,
-                            transfers: [
-                                sshTransfer(
-                                    execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./deploy_server.sh"
-                                )
-                        ])
-                    ])
-                }
-            }
-        }
+//         }
+//         stage('Transfer to development env') {
+//             steps {
+//                 script {
+//                     sshPublisher(
+//                         continueOnError: false, failOnError: true,
+//                         publishers: [
+//                             sshPublisherDesc(
+//                             configName: "dev-ssh-key",
+//                             verbose: true,
+//                             transfers: [
+//                                 sshTransfer(
+//                                     sourceFiles: "build/*, deploy_server.sh"
+//                                 )
+//                         ])
+//                     ])
+//                 }
+//             }
+//         }
+//         stage('Deploy to development env') {
+//             steps {
+//                 script {
+//                     sshPublisher(
+//                         continueOnError: false, failOnError: true,
+//                         publishers: [
+//                             sshPublisherDesc(
+//                             configName: "dev-ssh-key",
+//                             verbose: true,
+//                             transfers: [
+//                                 sshTransfer(
+//                                     execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./deploy_server.sh"
+//                                 )
+//                         ])
+//                     ])
+//                 }
+//             }
+//         }
         stage('Deploy to production approval') {
             input {
                 message "Do you want to proceed for production deployment?"
