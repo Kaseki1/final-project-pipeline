@@ -32,7 +32,7 @@ pipeline {
                 echo 'Test'
             }
         }
-        stage('Transfer') {
+        stage('Transfer to development env') {
             steps {
                 script {
                     sshPublisher(
@@ -50,7 +50,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Deploy to development env') {
             steps {
                 script {
                     sshPublisher(
@@ -68,12 +68,45 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to production') {
+        stage('Deploy to production approval') {
             input {
                 message "Do you want to proceed for production deployment?"
             }
+        }
+        stage('Transfer to production env') {
             steps {
-                echo 'Deploy to prod'
+                script {
+                    sshPublisher(
+                        continueOnError: false, failOnError: true,
+                        publishers: [
+                            sshPublisherDesc(
+                            configName: "dev-ssh-key",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: "build/*, deploy_server.sh"
+                                )
+                        ])
+                    ])
+                }
+            }
+        }
+        stage('Deploy to production env') {
+            steps {
+                script {
+                    sshPublisher(
+                        continueOnError: false, failOnError: true,
+                        publishers: [
+                            sshPublisherDesc(
+                            configName: "dev-ssh-key",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./deploy_server.sh"
+                                )
+                        ])
+                    ])
+                }
             }
         }
     }
