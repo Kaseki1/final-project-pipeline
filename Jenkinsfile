@@ -27,53 +27,53 @@ pipeline {
                 sh 'cp server/debug/server build/'
             }
         }
-        stage('Test') {
+        stage('Unit Tests') {
             steps {
                 echo 'Test'
             }
-//         }
-//         stage('Transfer to development env') {
-//             steps {
-//                 script {
-//                     sshPublisher(
-//                         continueOnError: false, failOnError: true,
-//                         publishers: [
-//                             sshPublisherDesc(
-//                             configName: "dev-ssh-key",
-//                             verbose: true,
-//                             transfers: [
-//                                 sshTransfer(
-//                                     sourceFiles: "build/*, deploy_server.sh"
-//                                 )
-//                         ])
-//                     ])
-//                 }
-//             }
-//         }
-//         stage('Deploy to development env') {
-//             steps {
-//                 script {
-//                     sshPublisher(
-//                         continueOnError: false, failOnError: true,
-//                         publishers: [
-//                             sshPublisherDesc(
-//                             configName: "dev-ssh-key",
-//                             verbose: true,
-//                             transfers: [
-//                                 sshTransfer(
-//                                     execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./deploy_server.sh"
-//                                 )
-//                         ])
-//                     ])
-//                 }
-//             }
-//         }
+        }
+        stage('Transfer to stage environment') {
+            steps {
+                script {
+                    sshPublisher(
+                        continueOnError: false, failOnError: true,
+                        publishers: [
+                            sshPublisherDesc(
+                            configName: "stage-ssh-key",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: "build/*, deploy_server.sh"
+                                )
+                        ])
+                    ])
+                }
+            }
+        }
+        stage('Deploy to stage environment') {
+            steps {
+                script {
+                    sshPublisher(
+                        continueOnError: false, failOnError: true,
+                        publishers: [
+                            sshPublisherDesc(
+                            configName: "stage-ssh-key",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./deploy_server.sh"
+                                )
+                        ])
+                    ])
+                }
+            }
+        }
         stage('Deploy to production approval') {
             input {
                 message "Do you want to proceed for production deployment?"
             }
             steps {
-                echo 'Approved'
+                echo 'Deploy to production pproved'
             }
         }
         stage('Transfer to production env') {
