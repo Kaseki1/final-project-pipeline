@@ -61,7 +61,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./install_server.sh"
+                                    execCommand: "chmod +x final-project/install_server.sh; cd final-project; sudo ./install_server.sh"
                                 )
                         ])
                     ])
