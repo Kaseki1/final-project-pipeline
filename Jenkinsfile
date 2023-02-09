@@ -43,7 +43,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    sourceFiles: "build/*, deploy_server.sh"
+                                    sourceFiles: "build/*, install_server.sh"
                                 )
                         ])
                     ])
@@ -61,7 +61,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./deploy_server.sh"
+                                    execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./install_server.sh"
                                 )
                         ])
                     ])
@@ -87,7 +87,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    sourceFiles: "build/*, deploy_server.sh"
+                                    sourceFiles: "build/*, install_server.sh"
                                 )
                         ])
                     ])
@@ -105,7 +105,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(
-                                    execCommand: "chmod +x final-project/deploy_server.sh; cd final-project; sudo ./deploy_server.sh"
+                                    execCommand: "chmod +x final-project/install_server.sh; cd final-project; sudo ./install_server.sh"
                                 )
                         ])
                     ])
