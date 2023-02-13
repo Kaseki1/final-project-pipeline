@@ -32,7 +32,7 @@ pipeline {
                 echo 'Test'
             }
         }
-        stage('Transfer to stage environment') {
+        stage('Deploy to stage environment') {
             steps {
                 script {
                     sshPublisher(
@@ -48,10 +48,6 @@ pipeline {
                         ])
                     ])
                 }
-            }
-        }
-        stage('Deploy to stage environment') {
-            steps {
                 script {
                     sshPublisher(
                         continueOnError: false, failOnError: true,
@@ -76,7 +72,7 @@ pipeline {
                 echo 'Deploy to production pproved'
             }
         }
-        stage('Transfer to production env') {
+        stage('Deploy to production env') {
             steps {
                 script {
                     sshPublisher(
@@ -92,10 +88,6 @@ pipeline {
                         ])
                     ])
                 }
-            }
-        }
-        stage('Deploy to production env') {
-            steps {
                 script {
                     sshPublisher(
                         continueOnError: false, failOnError: true,
